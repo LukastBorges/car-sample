@@ -10,7 +10,7 @@ import './App.scss'
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Router className="App">
+      <Router>
         <Header />
         <Switch>
           <Route path="/">
