@@ -1,0 +1,34 @@
+{
+  "vehicles": [
+    {
+      "id": 0,
+      "model": "Onyx",
+      "brand": "Chevrolet",
+      "year": "2021"
+    },
+    {
+      "id": 1,
+      "model": "Argo",
+      "brand": "Fiat",
+      "year": "2021"
+    },
+    {
+      "id": 2,
+      "model": "Gol",
+      "brand": "Volkswagen",
+      "year": "2021"
+    },
+    {
+      "id": 3,
+      "model": "Fox",
+      "brand": "Volkswagen",
+      "year": "2021"
+    },
+    {
+      "id": 4,
+      "model": "Up",
+      "brand": "Volkswagen",
+      "year": "2021"
+    }
+  ]
+}
