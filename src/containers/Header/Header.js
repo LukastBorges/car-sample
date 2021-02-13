@@ -6,7 +6,8 @@ import Link from '@material-ui/core/Link'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: 'center'
+    backdropFilter: 'blur(8px)',
+    backgroundColor: 'rgba(255, 255, 255, 9%)'
   },
   toolbar: {
     display: 'grid',

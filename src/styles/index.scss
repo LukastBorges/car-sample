@@ -3,4 +3,11 @@ body {
   font-family: 'Overpass', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top;
+  background-image: url('../static/background.jpg');
+  width: 100%;
+  height: 100%;
 }
