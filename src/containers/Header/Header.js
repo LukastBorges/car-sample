@@ -7,9 +7,10 @@ import Link from '@material-ui/core/Link'
 const useStyles = makeStyles((theme) => ({
   root: {
     backdropFilter: 'blur(8px)',
-    backgroundColor: 'rgba(255, 255, 255, 9%)'
+    backgroundColor: 'rgba(255, 255, 255, 21%)'
   },
   toolbar: {
+    zIndex: 1,
     display: 'grid',
     gridTemplateColumns: '120px 100px 100px calc(60% - 424px) 60px',
     marginLeft: '20%',
