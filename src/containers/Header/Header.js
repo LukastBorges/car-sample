@@ -40,7 +40,7 @@ const Header = () => {
     <AppBar position="sticky" color="transparent" elevation={0} className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h4" className={classes.logo}>
-          LOGO
+          LocaVel
         </Typography>
         <Link href="/" className={classes.link} color="secondary" underline="none">
           Veiculos
