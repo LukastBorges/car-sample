@@ -13,6 +13,8 @@
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^6.15.1",
+    "react-number-format": "^4.4.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "web-vitals": "^1.0.1"
@@ -23,11 +25,12 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "json-server": "^0.16.3",
+    "json-server-auth": "^2.0.2",
     "prettier": "2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "serve": "npx json-server -p 3002 db.json",
+    "serve": "npx json-server-auth -p 3002 db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint --ext .jsx,.js ./src",

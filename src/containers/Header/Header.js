@@ -4,6 +4,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Link from '@material-ui/core/Link'
 
+import Login from '../Login/Login'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backdropFilter: 'blur(8px)',
@@ -12,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     zIndex: 1,
     display: 'grid',
-    gridTemplateColumns: '120px 100px 100px calc(60% - 424px) 60px',
+    gridTemplateColumns: '140px 100px 100px calc(80% - 512px) 60px',
     marginLeft: '20%',
     gap: '16px',
     [theme.breakpoints.down('xs')]: {
@@ -48,7 +50,9 @@ const Header = () => {
         <Link href="/reservas" className={classes.link} color="secondary" underline="none">
           Reservas
         </Link>
-        <aside className={classes.login}></aside>
+        <aside className={classes.login}>
+          <Login />
+        </aside>
       </Toolbar>
     </AppBar>
   )
