@@ -46,6 +46,7 @@ const mapFlow = {
     <>
       <SignIn setUser={setUser} />
       <Link
+        id="sign-up"
         className={classStyle}
         component="button"
         variant="body2"
@@ -60,6 +61,7 @@ const mapFlow = {
     <>
       <SignUp setUser={setUser} setMode={setMode} />
       <Link
+        id="sign-in"
         className={classStyle}
         component="button"
         variant="body2"
@@ -99,6 +101,8 @@ const Login = () => {
     <div>
       <IconButton
         ref={anchorEl}
+        id="account-button"
+        data-testid="account-button"
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
