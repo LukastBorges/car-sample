@@ -1,5 +1,4 @@
-import { useCallback, useState, useRef } from 'react'
-import PropTypes from 'prop-types'
+import { useCallback, useContext, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import NumberFormat from 'react-number-format'
 
@@ -9,6 +8,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 
 import { getUser, signIn } from '../../services/api'
+import { RootContext } from '../../contexts/RootContext'
 
 const useStyles = makeStyles({
   actionButtons: {
@@ -17,11 +17,12 @@ const useStyles = makeStyles({
   }
 })
 
-const SignIn = (props) => {
+const SignIn = () => {
   const classes = useStyles()
   const { register, handleSubmit } = useForm()
   const [newUser, setNewUser] = useState(false)
   const [errorMsg, setMsg] = useState('')
+  const { dispatch } = useContext(RootContext)
   const cpf = useRef('')
   const user = useRef(null)
 
@@ -32,8 +33,9 @@ const SignIn = (props) => {
       const response = await signIn(newData)
 
       window.localStorage.setItem('user', JSON.stringify(user.current))
-      window.localStorage.setItem('token', JSON.stringify(response))
-      props.setUser(user.current)
+      window.localStorage.setItem('accessToken', JSON.stringify(response.accessToken))
+
+      dispatch({ type: 'update', key: 'user', value: user.current })
       setNewUser(false)
       setMsg('')
     } catch (e) {
@@ -51,10 +53,14 @@ const SignIn = (props) => {
       return
     }
 
-    const response = await getUser({ cpf: cpf.current })
+    try {
+      const response = await getUser({ cpf: cpf.current })
 
-    setNewUser(!response[0])
-    user.current = response[0]
+      setNewUser(!response[0])
+      user.current = response[0]
+    } catch (e) {
+      console.info(e)
+    }
   }, [])
 
   return (
@@ -107,11 +113,6 @@ const SignIn = (props) => {
       </form>
     </>
   )
-}
-
-SignIn.propTypes = {
-  user: PropTypes.object,
-  setUser: PropTypes.func
 }
 
 export default SignIn

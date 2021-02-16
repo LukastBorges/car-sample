@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { useState, useRef } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
@@ -11,6 +11,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 
 import SignIn from '../../components/SignIn/SignIn'
 import SignUp from '../../components/SignUp/SignUp'
+import { RootContext } from '../../contexts/RootContext'
 
 const useStyles = makeStyles({
   paper: {
@@ -42,9 +43,9 @@ const useStyles = makeStyles({
 })
 
 const mapFlow = {
-  0: (setUser, setMode, classStyle) => (
+  0: (setMode, classStyle) => (
     <>
-      <SignIn setUser={setUser} />
+      <SignIn />
       <Link
         id="sign-up"
         className={classStyle}
@@ -57,9 +58,9 @@ const mapFlow = {
       </Link>
     </>
   ),
-  1: (setUser, setMode, classStyle) => (
+  1: (setMode, classStyle) => (
     <>
-      <SignUp setUser={setUser} setMode={setMode} />
+      <SignUp setMode={setMode} />
       <Link
         id="sign-in"
         className={classStyle}
@@ -77,14 +78,11 @@ const mapFlow = {
 const Login = () => {
   const classes = useStyles()
   const anchorEl = useRef(null)
+  const { user, triggerLogin, dispatch } = useContext(RootContext)
   const [open, setOpen] = useState(false)
-  const [user, setUser] = useState(null)
   const [mode, setMode] = useState(0)
 
   const handleOpen = () => {
-    const storedUser = window.localStorage.getItem('user')
-
-    setUser(JSON.parse(storedUser))
     setOpen(true)
   }
 
@@ -93,9 +91,22 @@ const Login = () => {
   }
 
   const handleLogout = () => {
-    setUser(null)
+    dispatch({ type: 'update', key: 'user', value: null })
     window.localStorage.setItem('user', null)
+    window.localStorage.setItem('accessToken', null)
   }
+
+  useEffect(() => {
+    dispatch({ type: 'update', key: 'triggerLogin', value: false })
+    triggerLogin && handleOpen()
+  }, [triggerLogin, dispatch])
+
+  useEffect(() => {
+    const localUser = window.localStorage.getItem('user')
+    const parsedUser = JSON.parse(localUser)
+
+    parsedUser && dispatch({ type: 'update', key: 'user', value: parsedUser })
+  }, [dispatch])
 
   return (
     <div>
@@ -149,7 +160,7 @@ const Login = () => {
             </Link>
           </div>
         ) : (
-          mapFlow[mode](setUser, setMode, classes.link)
+          mapFlow[mode](setMode, classes.link)
         )}
       </Popover>
     </div>

@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import Alert from '@material-ui/lab/Alert'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
-import Snackbar from '@material-ui/core/Snackbar'
 
 import { getVehicles } from '../../services/api'
 import VehicleCard from '../../components/VehicleCard/VehicleCard'
+import { RootContext } from '../../contexts/RootContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,26 +36,25 @@ const useStyles = makeStyles((theme) => ({
 const Vehicles = () => {
   const classes = useStyles()
   const [cars, setCars] = useState([])
-  const [open, setOpen] = useState(false)
+  const { dispatch } = useContext(RootContext)
 
-  const handleFilter = async (e) => {
-    try {
-      const filter = e?.target.value ? { [e.target.name]: e.target.value } : null
-      const response = await getVehicles(filter)
+  const handleFilter = useCallback(
+    async (e) => {
+      try {
+        const filter = e?.target.value ? { [e.target.name]: e.target.value } : null
+        const response = await getVehicles(filter)
 
-      setCars(response)
-    } catch (e) {
-      setOpen(true)
-    }
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+        setCars(response)
+      } catch (e) {
+        dispatch({ type: 'update', key: 'toast', value: { type: 'error', msg: e.message } })
+      }
+    },
+    [dispatch]
+  )
 
   useEffect(() => {
     handleFilter()
-  }, [])
+  }, [handleFilter])
 
   return (
     <div className={classes.root}>
@@ -66,9 +64,10 @@ const Vehicles = () => {
           <InputLabel id="category-filter-label">Categoria</InputLabel>
           <Select
             name="category"
-            labelId="category-filter-select"
+            labelId="category-filter-label"
             id="category-filter-select"
             onChange={handleFilter}
+            defaultValue=""
           >
             <MenuItem value="">
               <em> - </em>
@@ -84,11 +83,6 @@ const Vehicles = () => {
           <VehicleCard key={item.id} car={item} />
         ))}
       </div>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          Algo deu errado ao crregar os veiculos, tente novamente em instantes.
-        </Alert>
-      </Snackbar>
     </div>
   )
 }

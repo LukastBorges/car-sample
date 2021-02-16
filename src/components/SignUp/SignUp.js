@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from 'react'
+import { useCallback, useContext, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import NumberFormat from 'react-number-format'
@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 
 import { signUp, getUser } from '../../services/api'
+import { RootContext } from '../../contexts/RootContext'
 
 const useStyles = makeStyles({
   actionButtons: {
@@ -22,6 +23,7 @@ const SignUp = (props) => {
   const classes = useStyles()
   const { register, handleSubmit } = useForm()
   const [newUser, setNewUser] = useState(true)
+  const { dispatch } = useContext(RootContext)
   const cpf = useRef('')
 
   const onSubmit = async (data) => {
@@ -33,10 +35,13 @@ const SignUp = (props) => {
       const response = await signUp(newData)
 
       setNewUser(false)
-      window.localStorage.setItem('user', JSON.stringify(response))
-      props.setMode(0)
+      delete newData.password
+      window.localStorage.setItem('user', JSON.stringify(newData))
+      window.localStorage.setItem('accessToken', JSON.stringify(response.accessToken))
+      dispatch({ type: 'update', key: 'user', value: newData })
+      props.setMode(2)
     } catch (e) {
-      console.error(e)
+      dispatch({ type: 'update', key: 'toast', value: { type: 'error', msg: e.message } })
     }
   }
 
@@ -47,9 +52,13 @@ const SignUp = (props) => {
   const checkUserExists = useCallback(async () => {
     if (!cpf.current) return
 
-    const response = await getUser({ cpf: cpf.current })
+    try {
+      const response = await getUser({ cpf: cpf.current })
 
-    response.length ? setNewUser(false) : setNewUser(true)
+      response.length ? setNewUser(false) : setNewUser(true)
+    } catch (e) {
+      console.info(e)
+    }
   }, [])
 
   return (
@@ -125,7 +134,6 @@ const SignUp = (props) => {
 }
 
 SignUp.propTypes = {
-  setUser: PropTypes.func,
   setMode: PropTypes.func
 }
 

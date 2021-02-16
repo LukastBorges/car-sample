@@ -45,3 +45,14 @@ export const getUser = async (filters) => {
     throw error
   }
 }
+
+export const saveReservation = async (params) => {
+  try {
+    const response = await axios.post(`${BASE_URL}reservations`, params)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
