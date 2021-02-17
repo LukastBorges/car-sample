@@ -75,7 +75,7 @@ const BookVehicle = (props) => {
     if (accessToken && user) {
       try {
         setLoading(true)
-        const payload = toReservationPayload({ ...user, ...data, ...props.car, value })
+        const payload = toReservationPayload({ ...data, ...props.car, ...user, value })
 
         await saveReservation(payload)
 

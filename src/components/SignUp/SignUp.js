@@ -33,10 +33,11 @@ const SignUp = (props) => {
 
     try {
       const response = await signUp(newData)
+      const userInfo = await getUser({ cpf: cpf.current })
 
+      delete userInfo[0].password
       setNewUser(false)
-      delete newData.password
-      window.localStorage.setItem('user', JSON.stringify(newData))
+      window.localStorage.setItem('user', JSON.stringify(userInfo[0]))
       window.localStorage.setItem('accessToken', JSON.stringify(response.accessToken))
       dispatch({ type: 'update', key: 'user', value: newData })
       props.setMode(2)
@@ -55,7 +56,11 @@ const SignUp = (props) => {
     try {
       const response = await getUser({ cpf: cpf.current })
 
-      response.length ? setNewUser(false) : setNewUser(true)
+      if (response.length) {
+        setNewUser(false)
+      } else {
+        setNewUser(true)
+      }
     } catch (e) {
       console.info(e)
     }

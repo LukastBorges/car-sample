@@ -91,6 +91,7 @@ const Login = () => {
   }
 
   const handleLogout = () => {
+    setMode(0)
     dispatch({ type: 'update', key: 'user', value: null })
     window.localStorage.setItem('user', null)
     window.localStorage.setItem('accessToken', null)
