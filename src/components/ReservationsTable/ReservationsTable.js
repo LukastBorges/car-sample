@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -71,4 +72,4 @@ ReservationsTable.propTypes = {
   data: PropTypes.array
 }
 
-export default ReservationsTable
+export default memo(ReservationsTable)
