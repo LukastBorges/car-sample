@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom'
 import './styles/index.scss'
 import App from './containers/App/App'
 import reportWebVitals from './reportWebVitals'
+import axiosConfig from './axiosConfig'
+
+axiosConfig.setupInterceptors()
 
 ReactDOM.render(
   <React.StrictMode>

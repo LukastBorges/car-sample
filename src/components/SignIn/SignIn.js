@@ -32,6 +32,7 @@ const SignIn = () => {
     try {
       const response = await signIn(newData)
 
+      delete user.current.password
       window.localStorage.setItem('user', JSON.stringify(user.current))
       window.localStorage.setItem('accessToken', JSON.stringify(response.accessToken))
 
@@ -59,9 +60,9 @@ const SignIn = () => {
       setNewUser(!response[0])
       user.current = response[0]
     } catch (e) {
-      console.info(e)
+      dispatch({ type: 'update', key: 'toast', value: { type: 'error', msg: e.message } })
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <>
