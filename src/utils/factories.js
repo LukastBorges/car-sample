@@ -1,5 +1,6 @@
 export const toReservationPayload = (data) => ({
-  userId: data.cpf,
+  userId: data.id,
+  cpf: data.cpf,
   brand: data.brand,
   model: data.model,
   carPlate: data.plate,
