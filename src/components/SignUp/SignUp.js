@@ -66,7 +66,7 @@ const SignUp = (props) => {
       <Typography variant="h6" color="primary">
         Cadastrar novo usuário
       </Typography>
-      <Typography variant="caption" color="secondary">
+      <Typography variant="caption">
         Comece digitando seu CPF para verificar se já existe um cadastro
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -125,7 +125,7 @@ const SignUp = (props) => {
         />
         <div className={classes.actionButtons}>
           <Button color="primary" type="submit" variant="outlined">
-            Salvar
+            Cadastrar
           </Button>
         </div>
       </form>

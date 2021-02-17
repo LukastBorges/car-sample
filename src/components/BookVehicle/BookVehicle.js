@@ -18,7 +18,6 @@ import { RootContext } from '../../contexts/RootContext'
 
 const useStyles = makeStyles({
   paper: {
-    width: '50%',
     padding: '8px 16px',
     textAlign: 'center',
     '& form': {
@@ -98,7 +97,7 @@ const BookVehicle = (props) => {
 
   return (
     <>
-      <Button color="primary" variant="outlined" onClick={handleOpen}>
+      <Button color="primary" variant="contained" onClick={handleOpen}>
         Reservar
       </Button>
       <Dialog
@@ -146,9 +145,10 @@ const BookVehicle = (props) => {
               required
             />
           </div>
-          <Typography variant="body1">Valor total: {formatCurrency(value)}</Typography>
 
-          <Button color="primary" variant="outlined" type="submit">
+          <Typography variant="h5">Valor total: {formatCurrency(value)}</Typography>
+
+          <Button color="primary" variant="contained" type="submit">
             Efetuar reserva
           </Button>
         </form>

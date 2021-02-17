@@ -3,13 +3,14 @@ body {
   font-family: 'Overpass', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #d1b5ff;
+  background-color: #c4c4c4;
   overflow: hidden;
   width: 100%;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {

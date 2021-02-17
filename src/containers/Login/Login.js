@@ -143,10 +143,10 @@ const Login = () => {
       >
         {user ? (
           <div className={classes.logout}>
-            <Typography variant="h6" color="secondary">
+            <Typography variant="h6" color="textPrimary">
               Seja bem vindo
             </Typography>
-            <Typography variant="body1" color="secondary" component="p">
+            <Typography variant="body1" component="p">
               {user.name}
             </Typography>
             <Link
