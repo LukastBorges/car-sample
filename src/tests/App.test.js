@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react'
+import { render, waitFor, cleanup, screen } from '@testing-library/react'
 import App from '../containers/App/App'
 
-test('renders app', () => {
+afterEach(cleanup)
+
+test('renders app', async () => {
   render(<App />)
-  const linkElement = screen.getByText(/locavel/i)
-  expect(linkElement).toBeInTheDocument()
+  await waitFor(() => {
+    const linkElement = screen.getByText(/LocAqui/i)
+
+    expect(linkElement).toBeInTheDocument()
+  })
 })
