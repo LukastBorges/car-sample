@@ -12,24 +12,28 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '16px',
     display: 'flex',
     flexDirection: 'column',
-    margin: '16px 24px 16px 0px',
+    margin: '24px',
     padding: '8px 16px',
     height: '320px',
-    width: '300px',
+    minWidth: '300px',
     transition: `all 300ms ${theme.transitions.easing.sharp}`,
     willChange: 'box-shadow',
+    overflow: 'visible',
     boxShadow: '12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.3)',
     '&:hover': {
+      overflow: 'hidden',
       boxShadow: '6px 6px 8px 0 rgba(0, 0, 0, 0.25), -4px -4px 6px 0 rgba(255, 255, 255, 0.3)',
       backgroundColor: 'ghostwhite',
       '& $image': {
         transform: 'scale(0.85)'
       },
       '& $textBody': {
-        transform: 'translateY(8px)'
+        transform: 'translateY(8px)',
+        visibility: 'visible'
       },
       '& $actionButton': {
-        transform: 'translateY(24px)'
+        transform: 'translateY(24px)',
+        visibility: 'visible'
       }
     }
   },
@@ -50,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    visibility: 'hidden',
+    maxWidth: '400px',
     transition: `transform 300ms ${theme.transitions.easing.sharp}`,
     transform: 'translateY(136px)',
     willChange: 'transform',
@@ -60,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
   actionButton: {
     display: 'flex',
     justifyContent: 'center',
+    visibility: 'hidden',
     transition: `transform 300ms ${theme.transitions.easing.sharp}`,
     transform: 'translateY(136px)'
   }
@@ -76,7 +83,7 @@ const VehicleCard = (props) => {
 
   return (
     <Card className={classes.root} elevation={0}>
-      <Typography variant="h6" className={classes.title} color="secondary">
+      <Typography variant="h6" className={classes.title}>
         {props.car.brand} {props.car.model}
       </Typography>
       <img src={props.car.url} alt={`Foto ${props.car.mode}`} className={classes.image} />
