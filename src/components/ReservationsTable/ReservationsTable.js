@@ -62,7 +62,7 @@ const ReservationsTable = (props) => {
     </TableContainer>
   ) : (
     <Typography className={classes.textInfo} variant="body2">
-      Não há reservas concluídas.
+      Não há reservas.
     </Typography>
   )
 }
